@@ -1,0 +1,18 @@
+import { fetchStats } from "./api.js";
+import { renderStats, showError } from "./ui.js";
+
+document.querySelector("#searchBtn").addEventListener("click", async () => {
+  const username = document.querySelector("#username").value.trim();
+
+  if (!username) {
+    showError("Please enter a username.");
+    return;
+  }
+
+  try {
+    const data = await fetchStats(username);
+    renderStats(data);
+  } catch (err) {
+    showError(err.message);
+  }
+});
